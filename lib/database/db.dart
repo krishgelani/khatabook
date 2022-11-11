@@ -24,6 +24,9 @@ class DbHelper {
       onCreate: (db, version) {
         String query =
             "CREATE TABLE details(id INTEGER PRIMARY KEY AUTOINCREMENT,name TEXT,std TEXT,mobile TEXT)";
+        String query1 =
+            "CREATE TABLE product(id INTEGER PRIMARY KEY AUTOINCREMENT,name TEXT,amount TEXT,date TEXT,time TEXT,client_id INTEGER,payment_status INTEGER)";
+        db.execute(query1);
         db.execute(query);
       },
     );
@@ -52,4 +55,51 @@ class DbHelper {
     db!.update("details", {"name": n1, "mobile": m1, "std": s1},
         where: "id = ?", whereArgs: [int.parse(id)]);
   }
+
+
+
+
+
+  // Future<Database> productcheckDatabase() async {
+  //     return await productcreateDatabase();
+  // }
+  //
+  // Future<Database> productcreateDatabase() async {
+  //   Directory folder = await getApplicationDocumentsDirectory();
+  //   String path = join(folder.path, "rnw.db");
+  //   return openDatabase(
+  //     path,
+  //     version: 1,
+  //     onCreate: (db, version) {
+  //       String query =
+  //           "CREATE TABLE product(id INTEGER PRIMARY KEY AUTOINCREMENT,name TEXT,amount TEXT,date TEXT,time TEXT)";
+  //       db.execute(query);
+  //     },
+  //   );
+  // }
+
+  void productinsertData(String n1, String a1, String d1,String t1,int clientId,int status) async {
+    db = await checkDatabase();
+    db!.insert("product", {"name": n1, "amount":a1, "date": d1, "time": t1,"client_id":clientId,"payment_status":status});
+  }
+
+  Future<List<Map>> productreadData(String id) async {
+    db = await checkDatabase();
+    String query = "SELECT * FROM product where client_id = $id";
+    List<Map> productlist = await db!.rawQuery(query, null);
+
+    return productlist;
+  }
+
+  void productdeleteData(String id) async {
+    db = await checkDatabase();
+    db!.delete("product", where: "id = ?", whereArgs: [int.parse(id)]);
+  }
+
+  void productupdateData(String id, String n1, String a1, String d1,String t1) async {
+    db = await checkDatabase();
+    db!.update("product", {"name": n1, "amount":a1, "date": d1, "time": t1},
+        where: "id = ?", whereArgs: [int.parse(id)]);
+  }
+
 }

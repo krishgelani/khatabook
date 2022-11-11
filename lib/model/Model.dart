@@ -1,6 +1,6 @@
 class Model
 {
-  String? name,mobile;
+  String? id,name,mobile;
 
-  Model({this.name, this.mobile});
+  Model({this.id,this.name, this.mobile});
 }

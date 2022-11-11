@@ -1,5 +1,7 @@
 import 'package:db/controller/homeController.dart';
 import 'package:db/database/db.dart';
+import 'package:db/screen/yougaveScreen.dart';
+import 'package:db/screen/yougotScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -17,6 +19,13 @@ class _ClientScreenState extends State<ClientScreen> {
 
   void getData() async {
     homeController.detailsList.value = await db.readData();
+    homeController.productList.value = await db.productreadData(homeController.datapicker!.id!);
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    getData();
   }
 
   @override
@@ -105,7 +114,9 @@ class _ClientScreenState extends State<ClientScreen> {
               height: 70,
               width: double.infinity,
               decoration: BoxDecoration(
-                border: Border(bottom: BorderSide(color: Colors.white,width: 2),),
+                border: Border(
+                  bottom: BorderSide(color: Colors.white, width: 2),
+                ),
               ),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -137,10 +148,62 @@ class _ClientScreenState extends State<ClientScreen> {
                 ],
               ),
             ),
-            Expanded(
+            Padding(
+              padding: const EdgeInsets.all(12.0),
               child: Container(
-                width: double.infinity,
-                color: Colors.black,
+                child: Row(
+                  children: [
+                    Text(
+                      "Date/Time",
+                      style: TextStyle(color: Colors.white),
+                    ),
+                    Spacer(),
+                    Text(
+                      "Remark",
+                      style: TextStyle(color: Colors.white),
+                    ),
+                    SizedBox(
+                      width: 25,
+                    ),
+                    Text(
+                      "You Gave/You Got",
+                      style: TextStyle(color: Colors.white),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            Expanded(
+              child: Obx(
+                () => ListView.builder(
+                  itemCount: homeController.productList.length,
+                  itemBuilder: (context, index) {
+                    return Padding(
+                      padding: const EdgeInsets.all(10),
+                      child: Container(
+                        height: 70,
+                        width: double.infinity,
+                        color: homeController.productList[index]['payment_status']==0?Colors.green:Colors.red,
+                        child: Row(
+                          children: [
+                            Text(
+                              "${homeController.productList[index]['date']}",
+                              style: TextStyle(color: Colors.white),
+                            ),
+                            Text(
+                              "${homeController.productList[index]['name']}",
+                              style: TextStyle(color: Colors.white),
+                            ),
+                            Text(
+                              "${homeController.productList[index]['amount']}",
+                              style: TextStyle(color: Colors.white),
+                            ),
+                          ],
+                        ),
+                      ),
+                    );
+                  },
+                ),
               ),
             ),
             Padding(
@@ -153,7 +216,9 @@ class _ClientScreenState extends State<ClientScreen> {
                       height: 50,
                       width: 150,
                       child: ElevatedButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            Get.to(YougaveScreen());
+                          },
                           child: Text("YOU GAVE ₹"),
                           style: ElevatedButton.styleFrom(
                               backgroundColor: Colors.red))),
@@ -161,7 +226,9 @@ class _ClientScreenState extends State<ClientScreen> {
                       height: 50,
                       width: 150,
                       child: ElevatedButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            Get.to(YougotScreen());
+                          },
                           child: Text("YOU GOT ₹"),
                           style: ElevatedButton.styleFrom(
                               backgroundColor: Colors.green))),

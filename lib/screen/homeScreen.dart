@@ -131,6 +131,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       onTap: (){
                         homeController.datapicker = Model(
                           name: homeController.detailsList[index]['name'],
+                          id: homeController.detailsList[index]['id'].toString(),
                           mobile: homeController.detailsList[index]['mobile'],
                         );
                         Get.to(ClientScreen());
