@@ -123,7 +123,11 @@ class _YougaveScreenState extends State<YougaveScreen> {
                 decoration: InputDecoration(
                   labelText: "Time",
                   labelStyle: TextStyle(color: Colors.grey),
-                  prefixIcon: Icon(Icons.calendar_month,color: Colors.grey),
+                  prefixIcon: InkWell(
+                      onTap: (){
+                        Timepickerdialogue();
+                      },
+                      child: Icon(Icons.calendar_month,color: Colors.grey)),
                   enabledBorder: OutlineInputBorder(
                     borderSide: BorderSide(color: Colors.grey),
                     borderRadius: BorderRadius.circular(10),
@@ -164,4 +168,18 @@ class _YougaveScreenState extends State<YougaveScreen> {
       txtdate.text = DateFormat('dd-MM-yyyy').format(date);
     }
   }
+  void Timepickerdialogue() async {
+    TimeOfDay? t1 =
+    await showTimePicker(context: context, initialTime: TimeOfDay.now());
+
+    if (t1 != null) {
+      DateTime parsedtime =
+      DateFormat.jm().parse(t1.format(context).toString());
+
+      String formetdtime = DateFormat('hh:mm').format(parsedtime);
+
+      txttime.text = formetdtime;
+    }
+  }
+
 }

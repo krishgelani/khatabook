@@ -1,5 +1,6 @@
 import 'package:db/model/Model.dart';
 import 'package:get/get.dart';
+import 'package:collection/collection.dart';
 
 class HomeController extends GetxController
 {
@@ -16,4 +17,15 @@ class HomeController extends GetxController
   {
     date = date1;
   }
+
+  // void total() {
+  //   int index = 0;
+  //   for(index=0;index<productList.length;index++)
+  //     {
+  //       if(productList[index]['payment_status']==0)
+  //         {
+  //           i = i+ int.parse(productList[index]['amount']);
+  //         }
+  //     }
+  // }
 }

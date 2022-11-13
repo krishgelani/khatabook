@@ -4,6 +4,9 @@ import 'package:db/screen/yougaveScreen.dart';
 import 'package:db/screen/yougotScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:url_launcher/url_launcher.dart';
+import 'package:share_plus/share_plus.dart';
+import 'package:collection/collection.dart';
 
 class ClientScreen extends StatefulWidget {
   const ClientScreen({Key? key}) : super(key: key);
@@ -44,7 +47,10 @@ class _ClientScreenState extends State<ClientScreen> {
           title: Text("${homeController.datapicker!.name}"),
           actions: [
             IconButton(
-              onPressed: () {},
+              onPressed: () {
+                String number = "tel: ${homeController.datapicker!.mobile}";
+                launchUrl(Uri.parse(number));
+              },
               icon: Icon(Icons.call),
             ),
           ],
@@ -139,7 +145,11 @@ class _ClientScreenState extends State<ClientScreen> {
                         color: Colors.white,
                       )),
                   IconButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        // String number = "sms: ${homeController.datapicker!.mobile}";
+                        // launchUrl(Uri.parse(number));
+                        Share.share("your payment day is here plea");
+                      },
                       icon: Icon(
                         Icons.chat,
                         color: Colors.white,
@@ -199,9 +209,19 @@ class _ClientScreenState extends State<ClientScreen> {
                                 children: [
                                   Container(
                                     width: 110,
-                                    child: Text(
-                                      "${homeController.productList[index]['date']}",
-                                      style: TextStyle(color: Colors.white),
+                                    alignment: Alignment.centerLeft,
+                                    child: Column(
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      children: [
+                                        Text(
+                                          "${homeController.productList[index]['date']}",
+                                          style: TextStyle(color: Colors.white),
+                                        ),
+                                        Text(
+                                          "${homeController.productList[index]['time']}",
+                                          style: TextStyle(color: Colors.grey),
+                                        ),
+                                      ],
                                     ),
                                   ),
                                   Container(
@@ -277,4 +297,13 @@ class _ClientScreenState extends State<ClientScreen> {
       ),
     );
   }
+
+
+  // void total() {
+  //   String sum;
+  //   int index = 0;
+  //   for(index=0;)
+  // }
+
+
 }
