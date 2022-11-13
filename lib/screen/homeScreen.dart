@@ -190,23 +190,6 @@ class _HomeScreenState extends State<HomeScreen> {
                                         ),
                                         TextField(
                                           textInputAction: TextInputAction.next,
-                                          style:
-                                          TextStyle(color: Colors.black),
-                                          controller: utxtstd,
-                                          decoration: InputDecoration(
-                                            hintText: "Std",
-                                            hintStyle:
-                                            TextStyle(color: Colors.grey),
-                                            enabledBorder:
-                                            UnderlineInputBorder(
-                                              borderSide: BorderSide(
-                                                  color:
-                                                  Colors.blue.shade900),
-                                            ),
-                                          ),
-                                        ),
-                                        TextField(
-                                          textInputAction: TextInputAction.next,
                                           controller: utxtmobile,
                                           style:
                                           TextStyle(color: Colors.black),
@@ -231,7 +214,6 @@ class _HomeScreenState extends State<HomeScreen> {
                                               "${homeController.detailsList[index]['id']}",
                                               utxtname.text,
                                               utxtmobile.text,
-                                              utxtstd.text,
                                             );
                                             getData();
                                             Get.back();

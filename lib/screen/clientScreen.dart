@@ -19,13 +19,18 @@ class _ClientScreenState extends State<ClientScreen> {
 
   void getData() async {
     homeController.detailsList.value = await db.readData();
-    homeController.productList.value = await db.productreadData(homeController.datapicker!.id!);
+  }
+  void productgetdata() async {
+    homeController.productList.value =
+    await db.productreadData(homeController.datapicker!.id!);
   }
 
   @override
   void initState() {
+    // TODO: implement initState
     super.initState();
     getData();
+    productgetdata();
   }
 
   @override
@@ -157,48 +162,76 @@ class _ClientScreenState extends State<ClientScreen> {
                       "Date/Time",
                       style: TextStyle(color: Colors.white),
                     ),
-                    Spacer(),
+                    SizedBox(width: 65,),
                     Text(
                       "Remark",
                       style: TextStyle(color: Colors.white),
                     ),
                     SizedBox(
-                      width: 25,
+                      width: 20,
                     ),
                     Text(
-                      "You Gave/You Got",
+                      "You Gave | You Got",
                       style: TextStyle(color: Colors.white),
                     ),
                   ],
                 ),
               ),
             ),
-            Expanded(
-              child: Obx(
-                () => ListView.builder(
-                  itemCount: homeController.productList.length,
+            Obx(
+              () => Expanded(
+                child: ListView.builder(
+                  itemCount: homeController.productList.value.length,
                   itemBuilder: (context, index) {
                     return Padding(
                       padding: const EdgeInsets.all(10),
                       child: Container(
                         height: 70,
                         width: double.infinity,
-                        color: homeController.productList[index]['payment_status']==0?Colors.green:Colors.red,
-                        child: Row(
-                          children: [
-                            Text(
-                              "${homeController.productList[index]['date']}",
-                              style: TextStyle(color: Colors.white),
-                            ),
-                            Text(
-                              "${homeController.productList[index]['name']}",
-                              style: TextStyle(color: Colors.white),
-                            ),
-                            Text(
-                              "${homeController.productList[index]['amount']}",
-                              style: TextStyle(color: Colors.white),
-                            ),
-                          ],
+                        // color: homeController.productList[index]['payment_status'] == 0 ? Colors.green : Colors.red,
+                        color: Colors.grey.shade900,
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Row(
+                                children: [
+                                  Container(
+                                    width: 110,
+                                    child: Text(
+                                      "${homeController.productList[index]['date']}",
+                                      style: TextStyle(color: Colors.white),
+                                    ),
+                                  ),
+                                  Container(
+                                    width: 70,
+                                    alignment: Alignment.center,
+                                    child: Text(
+                                      "${homeController.productList[index]['name']}",
+                                      style: TextStyle(color: Colors.white),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              Row(
+                                children: [
+                                  Container(
+                                    width:70,
+                                    alignment: Alignment.center,
+                                    color: Colors.red,
+                                    child: homeController.productList[index]['payment_status'] == 1 ? Text("${homeController.productList[index]['amount']}", style: TextStyle(color: Colors.white),) : Text(""),
+                                  ),
+                                  Container(
+                                    width:70,
+                                    alignment: Alignment.center,
+                                    color: Colors.green,
+                                    child: homeController.productList[index]['payment_status'] == 0 ? Text("${homeController.productList[index]['amount']}", style: TextStyle(color: Colors.white),) : Text(""),
+                                  ),
+                                ],
+                              )
+                            ],
+                          ),
                         ),
                       ),
                     );
@@ -213,25 +246,29 @@ class _ClientScreenState extends State<ClientScreen> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Container(
-                      height: 50,
-                      width: 150,
-                      child: ElevatedButton(
-                          onPressed: () {
-                            Get.to(YougaveScreen());
-                          },
-                          child: Text("YOU GAVE ₹"),
-                          style: ElevatedButton.styleFrom(
-                              backgroundColor: Colors.red))),
+                    height: 50,
+                    width: 150,
+                    child: ElevatedButton(
+                      onPressed: () {
+                        Get.to(YougaveScreen());
+                      },
+                      child: Text("YOU GAVE ₹"),
+                      style:
+                          ElevatedButton.styleFrom(backgroundColor: Colors.red),
+                    ),
+                  ),
                   Container(
-                      height: 50,
-                      width: 150,
-                      child: ElevatedButton(
-                          onPressed: () {
-                            Get.to(YougotScreen());
-                          },
-                          child: Text("YOU GOT ₹"),
-                          style: ElevatedButton.styleFrom(
-                              backgroundColor: Colors.green))),
+                    height: 50,
+                    width: 150,
+                    child: ElevatedButton(
+                      onPressed: () {
+                        Get.to(YougotScreen());
+                      },
+                      child: Text("YOU GOT ₹"),
+                      style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.green),
+                    ),
+                  ),
                 ],
               ),
             )

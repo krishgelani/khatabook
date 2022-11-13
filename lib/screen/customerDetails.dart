@@ -60,27 +60,6 @@ class _CustomerDetailsState extends State<CustomerDetails> {
                 height: 20,
               ),
               TextField(
-                style: TextStyle(color: Colors.white,fontSize: 18),
-                textInputAction: TextInputAction.next,
-                controller: txtstd,
-                decoration: InputDecoration(
-                  labelText: "std",
-                  labelStyle: TextStyle(color: Colors.grey),
-                  prefixIcon: Icon(Icons.school,color: Colors.grey),
-                  enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.grey),
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10),
-                    borderSide: BorderSide(color: Colors.blue.shade900,width: 3),
-                  ),
-                ),
-              ),
-              SizedBox(
-                height: 20,
-              ),
-              TextField(
                 controller: txtmobile,
                 style: TextStyle(color: Colors.white,fontSize: 18),
                 textInputAction: TextInputAction.next,
@@ -106,7 +85,7 @@ class _CustomerDetailsState extends State<CustomerDetails> {
               ),
               ElevatedButton(
                 onPressed: () {
-                  db.insertData(txtname.text, txtstd.text, txtmobile.text);
+                  db.insertData(txtname.text, txtmobile.text);
                   getData();
                   Get.back();
                 },

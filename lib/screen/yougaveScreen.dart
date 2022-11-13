@@ -2,16 +2,17 @@ import 'package:db/controller/homeController.dart';
 import 'package:db/database/db.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 
-class YougotScreen extends StatefulWidget {
-  const YougotScreen({Key? key}) : super(key: key);
+class YougaveScreen extends StatefulWidget {
+  const YougaveScreen({Key? key}) : super(key: key);
 
   @override
-  State<YougotScreen> createState() => _YougotScreenState();
+  State<YougaveScreen> createState() => _YougaveScreenState();
 }
 
-class _YougotScreenState extends State<YougotScreen> {
-  
+class _YougaveScreenState extends State<YougaveScreen> {
+
   TextEditingController txtname = TextEditingController();
   TextEditingController txtamount = TextEditingController();
   TextEditingController txtdate = TextEditingController();
@@ -22,7 +23,14 @@ class _YougotScreenState extends State<YougotScreen> {
   DbHelper db = DbHelper();
 
   void getData() async {
-    homeController.productList.value = await db.readData();
+    homeController.detailsList.value = await db.readData();
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    getData();
   }
   @override
   Widget build(BuildContext context) {
@@ -64,6 +72,7 @@ class _YougotScreenState extends State<YougotScreen> {
               TextField(
                 style: TextStyle(color: Colors.white,fontSize: 18),
                 textInputAction: TextInputAction.next,
+                keyboardType: TextInputType.number,
                 controller: txtamount,
                 decoration: InputDecoration(
                   labelText: "Amount",
@@ -90,7 +99,9 @@ class _YougotScreenState extends State<YougotScreen> {
                 decoration: InputDecoration(
                   labelText: "Date",
                   labelStyle: TextStyle(color: Colors.grey),
-                  prefixIcon: Icon(Icons.calendar_month,color: Colors.grey),
+                  prefixIcon: IconButton(onPressed: (){
+                    datepickerDialogue();
+                  },icon: Icon(Icons.calendar_month,color: Colors.grey),),
                   enabledBorder: OutlineInputBorder(
                     borderSide: BorderSide(color: Colors.grey),
                     borderRadius: BorderRadius.circular(10),
@@ -128,7 +139,7 @@ class _YougotScreenState extends State<YougotScreen> {
               ),
               ElevatedButton(
                 onPressed: () {
-                  db.productinsertData(txtname.text, txtamount.text, txtdate.text, txttime.text,int.parse(homeController.datapicker!.id!),0);
+                  db.productinsertData(txtname.text, txtamount.text, txtdate.text,txttime.text,int.parse(homeController.datapicker!.id!),1);
                   getData();
                   Get.back();
                 },
@@ -141,5 +152,16 @@ class _YougotScreenState extends State<YougotScreen> {
         ),
       ),
     );
+  }
+  void datepickerDialogue() async {
+    var date = await showDatePicker(
+        context: context,
+        initialDate: DateTime.now(),
+        firstDate: DateTime(2001),
+        lastDate: DateTime(3000));
+    homeController.getData(date);
+    if (date != null) {
+      txtdate.text = DateFormat('dd-MM-yyyy').format(date);
+    }
   }
 }

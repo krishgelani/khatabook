@@ -1,5 +1,4 @@
 import 'package:db/model/Model.dart';
-import 'package:db/model/productModel.dart';
 import 'package:get/get.dart';
 
 class HomeController extends GetxController
@@ -9,4 +8,12 @@ class HomeController extends GetxController
 
 
   RxList<Map> productList = <Map>[].obs;
+
+
+  var date = DateTime.now();
+
+  void getData(dynamic date1)
+  {
+    date = date1;
+  }
 }

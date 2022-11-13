@@ -23,7 +23,7 @@ class DbHelper {
       version: 1,
       onCreate: (db, version) {
         String query =
-            "CREATE TABLE details(id INTEGER PRIMARY KEY AUTOINCREMENT,name TEXT,std TEXT,mobile TEXT)";
+            "CREATE TABLE details(id INTEGER PRIMARY KEY AUTOINCREMENT,name TEXT,mobile TEXT)";
         String query1 =
             "CREATE TABLE product(id INTEGER PRIMARY KEY AUTOINCREMENT,name TEXT,amount TEXT,date TEXT,time TEXT,client_id INTEGER,payment_status INTEGER)";
         db.execute(query1);
@@ -32,9 +32,9 @@ class DbHelper {
     );
   }
 
-  void insertData(String n1, String s1, String m1) async {
+  void insertData(String n1, String m1) async {
     db = await checkDatabase();
-    db!.insert("details", {"name": n1, "std": s1, "mobile": m1});
+    db!.insert("details", {"name": n1, "mobile": m1});
   }
 
   Future<List<Map>> readData() async {
@@ -50,9 +50,9 @@ class DbHelper {
     db!.delete("details", where: "id = ?", whereArgs: [int.parse(id)]);
   }
 
-  void updateData(String id, String n1, String m1, String s1) async {
+  void updateData(String id, String n1, String m1) async {
     db = await checkDatabase();
-    db!.update("details", {"name": n1, "mobile": m1, "std": s1},
+    db!.update("details", {"name": n1, "mobile": m1},
         where: "id = ?", whereArgs: [int.parse(id)]);
   }
 
@@ -86,6 +86,14 @@ class DbHelper {
   Future<List<Map>> productreadData(String id) async {
     db = await checkDatabase();
     String query = "SELECT * FROM product where client_id = $id";
+    List<Map> productlist = await db!.rawQuery(query, null);
+
+    return productlist;
+  }
+
+  Future<List<Map>> productonlyreadData() async {
+    db = await checkDatabase();
+    String query = "SELECT * FROM product";
     List<Map> productlist = await db!.rawQuery(query, null);
 
     return productlist;
