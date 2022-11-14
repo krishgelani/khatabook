@@ -23,8 +23,7 @@ class _YougotScreenState extends State<YougotScreen> {
   DbHelper db = DbHelper();
 
   void getData() async {
-    homeController.productList.value = await db.productreadData(homeController.datapicker!.id!);
-    homeController.productList.value = await db.readData();
+    homeController.productList.value = await db.productreadData(id:homeController.datapicker!.id!);
   }
 
   @override

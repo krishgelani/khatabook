@@ -25,7 +25,10 @@ class _ClientScreenState extends State<ClientScreen> {
   }
   void productgetdata() async {
     homeController.productList.value =
-    await db.productreadData(homeController.datapicker!.id!);
+    await db.productreadData(id: homeController.datapicker!.id!);
+
+    additipn();
+
   }
 
   @override
@@ -84,12 +87,14 @@ class _ClientScreenState extends State<ClientScreen> {
                                   fontWeight: FontWeight.w400,
                                   fontSize: 25),
                             ),
-                            Text(
-                              "₹ 6000",
-                              style: TextStyle(
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.w400,
-                                  fontSize: 25),
+                            Obx(
+                              ()=> Text(
+                                "₹ ${homeController.totalsum.value}",
+                                style: TextStyle(
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.w400,
+                                    fontSize: 25),
+                              ),
                             ),
                           ],
                         ),
@@ -106,12 +111,14 @@ class _ClientScreenState extends State<ClientScreen> {
                                   fontWeight: FontWeight.w400,
                                   fontSize: 25),
                             ),
-                            Text(
-                              "₹ 6000",
-                              style: TextStyle(
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.w400,
-                                  fontSize: 25),
+                            Obx(
+                              ()=> Text(
+                                "₹ ${homeController.pendingsum.value}",
+                                style: TextStyle(
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.w400,
+                                    fontSize: 25),
+                              ),
                             ),
                           ],
                         ),
@@ -191,14 +198,13 @@ class _ClientScreenState extends State<ClientScreen> {
             Obx(
               () => Expanded(
                 child: ListView.builder(
-                  itemCount: homeController.productList.value.length,
+                  itemCount: homeController.productList.length,
                   itemBuilder: (context, index) {
                     return Padding(
                       padding: const EdgeInsets.all(10),
                       child: Container(
                         height: 70,
                         width: double.infinity,
-                        // color: homeController.productList[index]['payment_status'] == 0 ? Colors.green : Colors.red,
                         color: Colors.grey.shade900,
                         child: Padding(
                           padding: const EdgeInsets.all(8.0),
@@ -299,11 +305,27 @@ class _ClientScreenState extends State<ClientScreen> {
   }
 
 
-  // void total() {
-  //   String sum;
-  //   int index = 0;
-  //   for(index=0;)
-  // }
+  void additipn() {
+
+    int index = 0;
+    homeController.totalsum.value=0;
+    homeController.pendingsum.value=0;
+
+    print(homeController.datapicker!.id);
+
+    for(index=0;index<homeController.productList.length;index++) {
+        if (homeController.productList[index]["payment_status"] == 0) {
+          homeController.totalsum.value = homeController.totalsum.value +
+              int.parse(homeController.productList[index]["amount"]);
+          print(homeController.totalsum.value);
+        }
+        else {
+          homeController.pendingsum.value = homeController.pendingsum.value +
+              int.parse(homeController.productList[index]["amount"]);
+          print(homeController.pendingsum.value);
+        }
+      }
+  }
 
 
 }

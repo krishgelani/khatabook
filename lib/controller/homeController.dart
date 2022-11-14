@@ -6,7 +6,11 @@ class HomeController extends GetxController
 {
   RxList<Map> detailsList = <Map>[].obs;
   Model? datapicker;
+  RxInt totalsum = 0.obs;
+  RxInt pendingsum = 0.obs;
 
+  RxInt greensum = 0.obs;
+  RxInt redsum = 0.obs;
 
   RxList<Map> productList = <Map>[].obs;
 
