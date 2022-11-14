@@ -56,10 +56,6 @@ class DbHelper {
         where: "id = ?", whereArgs: [int.parse(id)]);
   }
 
-
-
-
-
   // Future<Database> productcheckDatabase() async {
   //     return await productcreateDatabase();
   // }
@@ -78,16 +74,24 @@ class DbHelper {
   //   );
   // }
 
-  void productinsertData(String n1, String a1, String d1,String t1,int clientId,int status) async {
+  void productinsertData(String n1, String a1, String d1, String t1,
+      int clientId, int status) async {
     db = await checkDatabase();
-    db!.insert("product", {"name": n1, "amount":a1, "date": d1, "time": t1,"client_id":clientId,"payment_status":status});
+    db!.insert("product", {
+      "name": n1,
+      "amount": a1,
+      "date": d1,
+      "time": t1,
+      "client_id": clientId,
+      "payment_status": status
+    });
   }
 
   Future<List<Map>> productreadData({String? id}) async {
     db = await checkDatabase();
-    String query="";
-    if(id!=null)
-     query = "SELECT * FROM product where client_id = $id";
+    String query = "";
+    if (id != null)
+      query = "SELECT * FROM product where client_id = $id";
     else
       query = "SELECT * FROM product";
 
@@ -96,16 +100,23 @@ class DbHelper {
     return productlist;
   }
 
+  Future<List<Map>> ProductFilterReadData(String? date) async {
+    db = await checkDatabase();
+    String query = "SELECT * FROM product where date = ?";
+    List<Map> productlist = await db!.rawQuery(query, [date]);
+
+    return productlist;
+  }
 
   void productdeleteData(String id) async {
     db = await checkDatabase();
     db!.delete("product", where: "id = ?", whereArgs: [int.parse(id)]);
   }
 
-  void productupdateData(String id, String n1, String a1, String d1,String t1) async {
+  void productupdateData(
+      String id, String n1, String a1, String d1, String t1) async {
     db = await checkDatabase();
-    db!.update("product", {"name": n1, "amount":a1, "date": d1, "time": t1},
+    db!.update("product", {"name": n1, "amount": a1, "date": d1, "time": t1},
         where: "id = ?", whereArgs: [int.parse(id)]);
   }
-
 }

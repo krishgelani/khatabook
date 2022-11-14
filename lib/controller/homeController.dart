@@ -1,7 +1,6 @@
 import 'package:db/database/db.dart';
 import 'package:db/model/Model.dart';
 import 'package:get/get.dart';
-import 'package:collection/collection.dart';
 
 class HomeController extends GetxController
 {
@@ -14,6 +13,9 @@ class HomeController extends GetxController
   RxInt redsum = 0.obs;
 
   RxList<Map> productList = <Map>[].obs;
+  RxList<Map> productList1 = <Map>[].obs;
+
+  RxString filterdate = "".obs;
 
 
   var date = DateTime.now();
@@ -45,21 +47,21 @@ class HomeController extends GetxController
 
   void homeaddition() async{
     DbHelper db = DbHelper();
-    productList.value = await db.productreadData();
+    productList1.value = await db.productreadData();
 
 
     int index = 0;
     greensum.value=0;
     redsum.value=0;
 
-    for(index=0;index<productList.length;index++) {
-      if (productList[index]["payment_status"] == 0) {
+    for(index=0;index<productList1.length;index++) {
+      if (productList1[index]["payment_status"] == 0) {
         greensum.value = greensum.value +
-            int.parse(productList[index]["amount"]);
+            int.parse(productList1[index]["amount"]);
       }
       else {
         redsum.value = redsum.value +
-            int.parse(productList[index]["amount"]);
+            int.parse(productList1[index]["amount"]);
       }
     }
   }

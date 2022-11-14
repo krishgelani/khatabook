@@ -42,7 +42,7 @@ class _YougaveScreenState extends State<YougaveScreen> {
         appBar: AppBar(
           backgroundColor: Colors.blue.shade900,
           elevation: 0,
-          title: Text("Add Customer",
+          title: Text("Add Product",
               style: TextStyle(fontSize: 25, fontWeight: FontWeight.w300)),
           centerTitle: true,
         ),
