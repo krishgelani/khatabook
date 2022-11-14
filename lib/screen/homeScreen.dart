@@ -26,8 +26,8 @@ class _HomeScreenState extends State<HomeScreen> {
   void getData() async {
     homeController.detailsList.value = await db.readData();
     homeController.productList.value = await db.productreadData();
-    addition();
-
+    homeController.homeaddition();
+    homeController.addition();
   }
 
   @override
@@ -238,8 +238,8 @@ class _HomeScreenState extends State<HomeScreen> {
                               PopupMenuItem(
                                 child: Text("Delete"),
                                 onTap: () {
-                                  db.deleteData(
-                                      "${homeController.detailsList[index]['id']}");
+                                  db.deleteData("${homeController.detailsList[index]['id']}");
+                                  db.productdeleteData("${homeController.detailsList[index]['id']}");
                                   getData();
                                 },
                               ),
@@ -268,22 +268,5 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
       ),
     );
-  }
-  void addition() {
-
-    int index = 0;
-    homeController.greensum.value=0;
-    homeController.redsum.value=0;
-
-    for(index=0;index<homeController.productList.length;index++) {
-      if (homeController.productList[index]["payment_status"] == 0) {
-        homeController.greensum.value = homeController.greensum.value +
-            int.parse(homeController.productList[index]["amount"]);
-      }
-      else {
-        homeController.redsum.value = homeController.redsum.value +
-            int.parse(homeController.productList[index]["amount"]);
-      }
-    }
   }
 }

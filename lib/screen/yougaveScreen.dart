@@ -24,6 +24,8 @@ class _YougaveScreenState extends State<YougaveScreen> {
 
   void getData() async {
     homeController.productList.value = await db.productreadData(id:homeController.datapicker!.id!);
+    homeController.addition();
+    homeController.homeaddition();
   }
 
   @override
@@ -144,6 +146,8 @@ class _YougaveScreenState extends State<YougaveScreen> {
               ElevatedButton(
                 onPressed: () {
                   db.productinsertData(txtname.text, txtamount.text, txtdate.text,txttime.text,int.parse(homeController.datapicker!.id!),1);
+                  // homeController.addition();
+                  // homeController.homeaddition();
                   getData();
                   Get.back();
                 },

@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:share_plus/share_plus.dart';
-import 'package:collection/collection.dart';
 
 class ClientScreen extends StatefulWidget {
   const ClientScreen({Key? key}) : super(key: key);
@@ -21,14 +20,8 @@ class _ClientScreenState extends State<ClientScreen> {
   DbHelper db = DbHelper();
 
   void getData() async {
-    homeController.detailsList.value = await db.readData();
-  }
-  void productgetdata() async {
-    homeController.productList.value =
-    await db.productreadData(id: homeController.datapicker!.id!);
-
-    additipn();
-
+    homeController.productList.value = await db.productreadData(id: homeController.datapicker!.id!);
+    homeController.addition();
   }
 
   @override
@@ -36,7 +29,6 @@ class _ClientScreenState extends State<ClientScreen> {
     // TODO: implement initState
     super.initState();
     getData();
-    productgetdata();
   }
 
   @override
@@ -88,10 +80,10 @@ class _ClientScreenState extends State<ClientScreen> {
                                   fontSize: 25),
                             ),
                             Obx(
-                              ()=> Text(
+                              () => Text(
                                 "₹ ${homeController.totalsum.value}",
                                 style: TextStyle(
-                                    color: Colors.black,
+                                    color: Colors.green,
                                     fontWeight: FontWeight.w400,
                                     fontSize: 25),
                               ),
@@ -112,10 +104,10 @@ class _ClientScreenState extends State<ClientScreen> {
                                   fontSize: 25),
                             ),
                             Obx(
-                              ()=> Text(
+                              () => Text(
                                 "₹ ${homeController.pendingsum.value}",
                                 style: TextStyle(
-                                    color: Colors.black,
+                                    color: Colors.red,
                                     fontWeight: FontWeight.w400,
                                     fontSize: 25),
                               ),
@@ -179,7 +171,9 @@ class _ClientScreenState extends State<ClientScreen> {
                       "Date/Time",
                       style: TextStyle(color: Colors.white),
                     ),
-                    SizedBox(width: 65,),
+                    SizedBox(
+                      width: 65,
+                    ),
                     Text(
                       "Remark",
                       style: TextStyle(color: Colors.white),
@@ -217,7 +211,8 @@ class _ClientScreenState extends State<ClientScreen> {
                                     width: 110,
                                     alignment: Alignment.centerLeft,
                                     child: Column(
-                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
                                       children: [
                                         Text(
                                           "${homeController.productList[index]['date']}",
@@ -243,16 +238,32 @@ class _ClientScreenState extends State<ClientScreen> {
                               Row(
                                 children: [
                                   Container(
-                                    width:70,
+                                    width: 70,
                                     alignment: Alignment.center,
                                     color: Colors.red,
-                                    child: homeController.productList[index]['payment_status'] == 1 ? Text("${homeController.productList[index]['amount']}", style: TextStyle(color: Colors.white),) : Text(""),
+                                    child: homeController.productList[index]
+                                                ['payment_status'] ==
+                                            1
+                                        ? Text(
+                                            "${homeController.productList[index]['amount']}",
+                                            style:
+                                                TextStyle(color: Colors.white),
+                                          )
+                                        : Text(""),
                                   ),
                                   Container(
-                                    width:70,
+                                    width: 70,
                                     alignment: Alignment.center,
                                     color: Colors.green,
-                                    child: homeController.productList[index]['payment_status'] == 0 ? Text("${homeController.productList[index]['amount']}", style: TextStyle(color: Colors.white),) : Text(""),
+                                    child: homeController.productList[index]
+                                                ['payment_status'] ==
+                                            0
+                                        ? Text(
+                                            "${homeController.productList[index]['amount']}",
+                                            style:
+                                                TextStyle(color: Colors.white),
+                                          )
+                                        : Text(""),
                                   ),
                                 ],
                               )
@@ -304,47 +315,21 @@ class _ClientScreenState extends State<ClientScreen> {
     );
   }
 
-
-  void additipn() {
-
+  void addition() {
     int index = 0;
-    homeController.totalsum.value=0;
-    homeController.pendingsum.value=0;
+    homeController.totalsum.value = 0;
+    homeController.pendingsum.value = 0;
 
     print(homeController.datapicker!.id);
 
-    for(index=0;index<homeController.productList.length;index++) {
-        if (homeController.productList[index]["payment_status"] == 0) {
-          homeController.totalsum.value = homeController.totalsum.value +
-              int.parse(homeController.productList[index]["amount"]);
-          print(homeController.totalsum.value);
-        }
-        else {
-          homeController.pendingsum.value = homeController.pendingsum.value +
-              int.parse(homeController.productList[index]["amount"]);
-          print(homeController.pendingsum.value);
-        }
+    for (index = 0; index < homeController.productList.length; index++) {
+      if (homeController.productList[index]["payment_status"] == 0) {
+        homeController.totalsum.value = homeController.totalsum.value +
+            int.parse(homeController.productList[index]["amount"]);
+      } else {
+        homeController.pendingsum.value = homeController.pendingsum.value +
+            int.parse(homeController.productList[index]["amount"]);
       }
+    }
   }
-
-  void totalsum()
-  {
-    int i=0;
-    homeController.totalsum.value=0;
-    homeController.pendingsum.value=0;
-
-    for(i=0;i<homeController.productList.length;i++)
-      {
-        if(homeController.productList[i]['payment_status']==0)
-          {
-            homeController.totalsum.value  = int.parse( homeController.productList[i]['amount']) +homeController.totalsum.value;
-          }
-        else
-          {
-            homeController.pendingsum.value  = int.parse( homeController.productList[i]['amount']) +homeController.pendingsum.value;
-          }
-      }
-  }
-
-
 }
