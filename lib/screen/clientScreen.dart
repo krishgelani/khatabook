@@ -327,5 +327,24 @@ class _ClientScreenState extends State<ClientScreen> {
       }
   }
 
+  void totalsum()
+  {
+    int i=0;
+    homeController.totalsum.value=0;
+    homeController.pendingsum.value=0;
+
+    for(i=0;i<homeController.productList.length;i++)
+      {
+        if(homeController.productList[i]['payment_status']==0)
+          {
+            homeController.totalsum.value  = int.parse( homeController.productList[i]['amount']) +homeController.totalsum.value;
+          }
+        else
+          {
+            homeController.pendingsum.value  = int.parse( homeController.productList[i]['amount']) +homeController.pendingsum.value;
+          }
+      }
+  }
+
 
 }
