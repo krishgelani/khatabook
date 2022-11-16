@@ -17,6 +17,8 @@ class HomeController extends GetxController
 
   RxString filterdate = "".obs;
 
+  productModel? productdatapicker;
+
 
   var date = DateTime.now();
 

@@ -45,7 +45,7 @@ class _HomeScreenState extends State<HomeScreen> {
         appBar: AppBar(
           backgroundColor: Colors.blue.shade900,
           elevation: 0,
-          title: Text("Database",
+          title: Text("KHATABOOK",
               style: TextStyle(fontSize: 25, fontWeight: FontWeight.w400)),
           centerTitle: true,
           actions: [

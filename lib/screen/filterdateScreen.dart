@@ -182,5 +182,6 @@ class _FilterdateScreenState extends State<FilterdateScreen> {
     if (date != null) {
       homeController.filterdate.value = DateFormat('dd-MM-yyyy').format(date);
     }
+    getData();
   }
 }

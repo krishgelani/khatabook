@@ -7,7 +7,8 @@ class Model
 
 class productModel
 {
-  var date,time;
+  String? name,amount,date,time;
+  String? id;
 
-  productModel(this.date, this.time);
+  productModel({this.id, this.name, this.amount, this.date, this.time});
 }
