@@ -243,7 +243,8 @@ class _ProductScreenState extends State<ProductScreen> {
                                   onPressed: () {
                                     db.productupdateData(homeController.productdatapicker!.id!, txtname.text, txtamount.text, txtdate.text, txttime.text);
                                     getData();
-                                    Get.offAndToNamed('/client');
+                                    Get.back();
+                                    Get.back();
                                   },
                                   child: Text("UPDATE"),
                                   style: ElevatedButton.styleFrom(
@@ -253,7 +254,8 @@ class _ProductScreenState extends State<ProductScreen> {
                                   onPressed: () {
                                     db.productdeleteData(homeController.productdatapicker!.id!);
                                     getData();
-                                    Get.offAndToNamed('/client');
+                                    Get.back();
+                                    Get.back();
                                   },
                                   child: Text("DELETE"),
                                   style: ElevatedButton.styleFrom(
@@ -263,7 +265,7 @@ class _ProductScreenState extends State<ProductScreen> {
                             ),
                           ],
                         ),
-                      )
+                      ),
                     );
                   },
                   child: Text("UPDATE | DELETE",style: TextStyle(fontSize: 22),),

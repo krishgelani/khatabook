@@ -50,6 +50,10 @@ class _HomeScreenState extends State<HomeScreen> {
           centerTitle: true,
           actions: [
             IconButton(
+              onPressed: () {},
+              icon: Icon(Icons.search),
+            ),
+            IconButton(
               onPressed: () {
                 Get.to(FilterdateScreen());
               },
