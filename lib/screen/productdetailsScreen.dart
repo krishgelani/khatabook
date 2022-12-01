@@ -23,11 +23,15 @@ class _ProductScreenState extends State<ProductScreen> {
 
   DbHelper db = DbHelper();
 
+  String selected = "";
+
   void getData() async {
-    homeController.productList.value = await db.productreadData(id:homeController.datapicker!.id!);
+    homeController.productList.value =
+        await db.productreadData(id: homeController.datapicker!.id!);
     homeController.addition();
     homeController.homeaddition();
   }
+
   @override
   void initState() {
     // TODO: implement initState
@@ -43,7 +47,10 @@ class _ProductScreenState extends State<ProductScreen> {
         appBar: AppBar(
           backgroundColor: Colors.blue.shade900,
           elevation: 0,
-          title: Text("Entry Details",style: TextStyle(fontSize: 27,fontWeight: FontWeight.w300),),
+          title: Text(
+            "Entry Details",
+            style: TextStyle(fontSize: 27, fontWeight: FontWeight.w300),
+          ),
           actions: [
             IconButton(
               onPressed: () {
@@ -66,19 +73,19 @@ class _ProductScreenState extends State<ProductScreen> {
                   height: 180,
                   width: double.infinity,
                   decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(10)
-                  ),
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(10)),
                   child: Column(
                     children: [
                       Container(
                         height: 60,
                         width: double.infinity,
                         decoration: BoxDecoration(
-                          border: Border(bottom: BorderSide(color: Colors.grey.shade200,width: 2))
-                        ),
+                            border: Border(
+                                bottom: BorderSide(
+                                    color: Colors.grey.shade200, width: 2))),
                         child: Padding(
-                          padding: const EdgeInsets.only(left: 15,right: 15),
+                          padding: const EdgeInsets.only(left: 15, right: 15),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
@@ -86,11 +93,18 @@ class _ProductScreenState extends State<ProductScreen> {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Text("${homeController.datapicker!.name}",style: TextStyle(fontSize: 21),),
-                                  Text("${homeController.productdatapicker!.date} - ${homeController.productdatapicker!.time}")
+                                  Text(
+                                    "${homeController.datapicker!.name}",
+                                    style: TextStyle(fontSize: 21),
+                                  ),
+                                  Text(
+                                      "${homeController.productdatapicker!.date} - ${homeController.productdatapicker!.time}")
                                 ],
                               ),
-                              Text("₹ ${homeController.productdatapicker!.amount}",style: TextStyle(fontSize: 25),)
+                              Text(
+                                "₹ ${homeController.productdatapicker!.amount}",
+                                style: TextStyle(fontSize: 25),
+                              )
                             ],
                           ),
                         ),
@@ -99,16 +113,23 @@ class _ProductScreenState extends State<ProductScreen> {
                         height: 60,
                         width: double.infinity,
                         decoration: BoxDecoration(
-                          border: Border(bottom: BorderSide(color: Colors.grey.shade200,width: 2),
-                          )
-                        ),
+                            border: Border(
+                          bottom:
+                              BorderSide(color: Colors.grey.shade200, width: 2),
+                        )),
                         child: Padding(
-                          padding: const EdgeInsets.only(left: 15,right: 15),
+                          padding: const EdgeInsets.only(left: 15, right: 15),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Text("Running Balance",style: TextStyle(fontSize: 17),),
-                              Text("₹ ${homeController.productdatapicker!.amount}",style: TextStyle(fontSize: 25),)
+                              Text(
+                                "Running Balance",
+                                style: TextStyle(fontSize: 17),
+                              ),
+                              Text(
+                                "₹ ${homeController.productdatapicker!.amount}",
+                                style: TextStyle(fontSize: 25),
+                              )
                             ],
                           ),
                         ),
@@ -117,12 +138,18 @@ class _ProductScreenState extends State<ProductScreen> {
                         height: 60,
                         width: double.infinity,
                         child: Padding(
-                          padding: const EdgeInsets.only(left: 15,right: 15),
+                          padding: const EdgeInsets.only(left: 15, right: 15),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Text("Details",style: TextStyle(fontSize: 17),),
-                              Text("₹ ${homeController.productdatapicker!.name}",style: TextStyle(fontSize: 25),)
+                              Text(
+                                "Details",
+                                style: TextStyle(fontSize: 17),
+                              ),
+                              Text(
+                                "₹ ${homeController.productdatapicker!.name}",
+                                style: TextStyle(fontSize: 25),
+                              )
                             ],
                           ),
                         ),
@@ -131,17 +158,21 @@ class _ProductScreenState extends State<ProductScreen> {
                   ),
                 ),
               ),
-              Container(height: MediaQuery.of(context).size.height/1.87,),
+              Container(
+                height: MediaQuery.of(context).size.height / 1.87,
+              ),
               Container(
                 height: 70,
                 width: double.infinity,
                 color: Colors.grey.shade900,
                 child: ElevatedButton(
-                  onPressed: (){
+                  onPressed: () {
                     txtname.text = homeController.productdatapicker!.name!;
                     txtamount.text = homeController.productdatapicker!.amount!;
                     txtdate.text = homeController.productdatapicker!.date!;
                     txttime.text = homeController.productdatapicker!.time!;
+                    int checkvalue =
+                        homeController.productdatapicker!.payment_status!;
 
                     Get.defaultDialog(
                       content: SingleChildScrollView(
@@ -153,14 +184,16 @@ class _ProductScreenState extends State<ProductScreen> {
                               decoration: InputDecoration(
                                 labelText: "Name",
                                 labelStyle: TextStyle(color: Colors.grey),
-                                prefixIcon: Icon(Icons.person,color: Colors.grey),
+                                prefixIcon:
+                                    Icon(Icons.person, color: Colors.grey),
                                 enabledBorder: OutlineInputBorder(
                                   borderSide: BorderSide(color: Colors.grey),
                                   borderRadius: BorderRadius.circular(10),
                                 ),
                                 focusedBorder: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(10),
-                                  borderSide: BorderSide(color: Colors.blue.shade900,width: 3),
+                                  borderSide: BorderSide(
+                                      color: Colors.blue.shade900, width: 3),
                                 ),
                               ),
                             ),
@@ -174,14 +207,16 @@ class _ProductScreenState extends State<ProductScreen> {
                               decoration: InputDecoration(
                                 labelText: "Amount",
                                 labelStyle: TextStyle(color: Colors.grey),
-                                prefixIcon: Icon(Icons.currency_rupee,color: Colors.grey),
+                                prefixIcon: Icon(Icons.currency_rupee,
+                                    color: Colors.grey),
                                 enabledBorder: OutlineInputBorder(
                                   borderSide: BorderSide(color: Colors.grey),
                                   borderRadius: BorderRadius.circular(10),
                                 ),
                                 focusedBorder: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(10),
-                                  borderSide: BorderSide(color: Colors.blue.shade900,width: 3),
+                                  borderSide: BorderSide(
+                                      color: Colors.blue.shade900, width: 3),
                                 ),
                               ),
                             ),
@@ -195,16 +230,21 @@ class _ProductScreenState extends State<ProductScreen> {
                               decoration: InputDecoration(
                                 labelText: "Date",
                                 labelStyle: TextStyle(color: Colors.grey),
-                                prefixIcon: IconButton(onPressed: (){
-                                  datepickerDialogue();
-                                },icon: Icon(Icons.calendar_month,color: Colors.grey),),
+                                prefixIcon: IconButton(
+                                  onPressed: () {
+                                    datepickerDialogue();
+                                  },
+                                  icon: Icon(Icons.calendar_month,
+                                      color: Colors.grey),
+                                ),
                                 enabledBorder: OutlineInputBorder(
                                   borderSide: BorderSide(color: Colors.grey),
                                   borderRadius: BorderRadius.circular(10),
                                 ),
                                 focusedBorder: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(10),
-                                  borderSide: BorderSide(color: Colors.blue.shade900,width: 3),
+                                  borderSide: BorderSide(
+                                      color: Colors.blue.shade900, width: 3),
                                 ),
                               ),
                             ),
@@ -219,19 +259,57 @@ class _ProductScreenState extends State<ProductScreen> {
                                 labelText: "Time",
                                 labelStyle: TextStyle(color: Colors.grey),
                                 prefixIcon: InkWell(
-                                    onTap: (){
+                                    onTap: () {
                                       Timepickerdialogue();
                                     },
-                                    child: Icon(Icons.calendar_month,color: Colors.grey)),
+                                    child: Icon(Icons.calendar_month,
+                                        color: Colors.grey)),
                                 enabledBorder: OutlineInputBorder(
                                   borderSide: BorderSide(color: Colors.grey),
                                   borderRadius: BorderRadius.circular(10),
                                 ),
                                 focusedBorder: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(10),
-                                  borderSide: BorderSide(color: Colors.blue.shade900,width: 3),
+                                  borderSide: BorderSide(
+                                      color: Colors.blue.shade900, width: 3),
                                 ),
                               ),
+                            ),
+                            SizedBox(
+                              height: 21,
+                            ),
+                            Row(
+                              children: [
+                                Obx(
+                                  () => Expanded(
+                                    child: RadioListTile(
+                                      value: 0,
+                                      selected: checkvalue == 0 ? true : false,
+                                      groupValue:
+                                          homeController.radioselect.value,
+                                      onChanged: (value) {
+                                        homeController.radioselect.value =
+                                            value!;
+                                      },
+                                      title: Text("Paid"),
+                                    ),
+                                  ),
+                                ),
+                                Obx(
+                                  () => Expanded(
+                                    child: RadioListTile(
+                                      value: 1,
+                                      selected: checkvalue == 1 ? true : false,
+                                      groupValue:
+                                          homeController.radioselect.value,
+                                      onChanged: (value) {
+                                        homeController.radioselect.value = value!;
+                                      },
+                                      title: Text("Not Paid"),
+                                    ),
+                                  ),
+                                ),
+                              ],
                             ),
                             SizedBox(
                               height: 21,
@@ -241,7 +319,14 @@ class _ProductScreenState extends State<ProductScreen> {
                               children: [
                                 ElevatedButton(
                                   onPressed: () {
-                                    db.productupdateData(homeController.productdatapicker!.id!, txtname.text, txtamount.text, txtdate.text, txttime.text);
+                                    db.productupdateData(
+                                      homeController.productdatapicker!.id!,
+                                      txtname.text,
+                                      txtamount.text,
+                                      txtdate.text,
+                                      txttime.text,
+                                      homeController.radioselect.value,
+                                    );
                                     getData();
                                     Get.back();
                                     Get.back();
@@ -252,7 +337,8 @@ class _ProductScreenState extends State<ProductScreen> {
                                 ),
                                 ElevatedButton(
                                   onPressed: () {
-                                    db.productdeleteData(homeController.productdatapicker!.id!);
+                                    db.productdeleteData(
+                                        homeController.productdatapicker!.id!);
                                     getData();
                                     Get.back();
                                     Get.back();
@@ -268,10 +354,13 @@ class _ProductScreenState extends State<ProductScreen> {
                       ),
                     );
                   },
-                  child: Text("UPDATE | DELETE",style: TextStyle(fontSize: 22),),
-                  style: ElevatedButton.styleFrom(backgroundColor: Colors.blue.shade900),
+                  child: Text(
+                    "UPDATE | DELETE",
+                    style: TextStyle(fontSize: 22),
+                  ),
+                  style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.blue.shade900),
                 ),
-
               )
             ],
           ),
@@ -291,20 +380,20 @@ class _ProductScreenState extends State<ProductScreen> {
       txtdate.text = DateFormat('dd-MM-yyyy').format(date);
     }
   }
+
   void Timepickerdialogue() async {
     TimeOfDay? t1 =
-    await showTimePicker(context: context, initialTime: TimeOfDay.now());
+        await showTimePicker(context: context, initialTime: TimeOfDay.now());
 
     if (t1 != null) {
       DateTime parsedtime =
-      DateFormat.jm().parse(t1.format(context).toString());
+          DateFormat.jm().parse(t1.format(context).toString());
 
       String formetdtime = DateFormat('hh:mm').format(parsedtime);
 
       txttime.text = formetdtime;
     }
   }
-
 }
 
 /*

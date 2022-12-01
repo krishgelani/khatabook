@@ -204,6 +204,7 @@ class _ClientScreenState extends State<ClientScreen> {
                           amount: homeController.productList[index]['amount'],
                           date: homeController.productList[index]['date'],
                           time: homeController.productList[index]['time'],
+                          payment_status: homeController.productList[index]['payment_status'],
                         );
                         Get.to(ProductScreen());
                       },

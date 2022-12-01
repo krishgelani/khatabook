@@ -5,6 +5,7 @@ import 'package:db/database/db.dart';
 import 'package:db/controller/homeController.dart';
 import 'package:db/screen/filterdateScreen.dart';
 import 'package:db/screen/historyScreen.dart';
+import 'package:db/screen/searchScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -50,7 +51,9 @@ class _HomeScreenState extends State<HomeScreen> {
           centerTitle: true,
           actions: [
             IconButton(
-              onPressed: () {},
+              onPressed: () {
+                Get.to(SearchScreen());
+              },
               icon: Icon(Icons.search),
             ),
             IconButton(

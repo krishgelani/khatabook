@@ -4,7 +4,10 @@ import 'package:get/get.dart';
 
 class HomeController extends GetxController
 {
-  RxList<Map> detailsList = <Map>[].obs;
+  RxList detailsList = [].obs;
+  RxList searchdetailsList = [].obs;
+
+
   Model? datapicker;
   RxInt totalsum = 0.obs;
   RxInt pendingsum = 0.obs;
@@ -16,6 +19,8 @@ class HomeController extends GetxController
   RxList<Map> productList1 = <Map>[].obs;
 
   RxString filterdate = "".obs;
+
+  RxInt radioselect = 0.obs;
 
   productModel? productdatapicker;
 
@@ -67,4 +72,28 @@ class HomeController extends GetxController
       }
     }
   }
+
+  void searchdata(String query) async {
+    searchdetailsList = detailsList;
+    if(query.isNotEmpty)
+      {
+        List searchList = [];
+        for(var search in searchdetailsList)
+          {
+            if(search['name'].toLowerCase().contains(query.toLowerCase()))
+              {
+                searchList.add(search);
+              }
+          }
+        detailsList.value = searchList;
+      }
+    else
+      {
+        DbHelper db = DbHelper();
+
+        detailsList.value = await db.readData();
+      }
+  }
+
+
 }

@@ -114,9 +114,9 @@ class DbHelper {
   }
 
   void productupdateData(
-      String id, String n1, String a1, String d1, String t1) async {
+      String id, String n1, String a1, String d1, String t1, int payment_status) async {
     db = await checkDatabase();
-    db!.update("product", {"name": n1, "amount": a1, "date": d1, "time": t1},
+    db!.update("product", {"name": n1, "amount": a1, "date": d1, "time": t1,"payment_status":payment_status},
         where: "id = ?", whereArgs: [int.parse(id)]);
   }
 }
