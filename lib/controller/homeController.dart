@@ -38,7 +38,7 @@ class HomeController extends GetxController
     totalsum.value=0;
     pendingsum.value=0;
 
-    print(datapicker!.id);
+    print(datapicker?.id);
 
     for(index=0;index<productList.length;index++) {
       if (productList[index]["payment_status"] == 0) {

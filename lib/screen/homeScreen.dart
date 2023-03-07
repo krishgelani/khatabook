@@ -25,6 +25,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   DbHelper db = DbHelper();
 
+
   void getData() async {
     homeController.detailsList.value = await db.readData();
     homeController.productList.value = await db.productreadData();

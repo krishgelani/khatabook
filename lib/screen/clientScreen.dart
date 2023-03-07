@@ -48,7 +48,7 @@ class _ClientScreenState extends State<ClientScreen> {
                 String number = "tel: ${homeController.datapicker!.mobile}";
                 launchUrl(Uri.parse(number));
               },
-              icon: Icon(Icons.call),
+              icon: const Icon(Icons.call),
             ),
           ],
         ),
@@ -74,7 +74,7 @@ class _ClientScreenState extends State<ClientScreen> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Text(
+                            const Text(
                               "Total Income",
                               style: TextStyle(
                                   color: Colors.black,
@@ -84,7 +84,7 @@ class _ClientScreenState extends State<ClientScreen> {
                             Obx(
                               () => Text(
                                 "₹ ${homeController.totalsum.value}",
-                                style: TextStyle(
+                                style: const TextStyle(
                                     color: Colors.green,
                                     fontWeight: FontWeight.w400,
                                     fontSize: 25),
@@ -92,13 +92,13 @@ class _ClientScreenState extends State<ClientScreen> {
                             ),
                           ],
                         ),
-                        Divider(
+                        const Divider(
                           thickness: 1.5,
                         ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Text(
+                            const Text(
                               "Total Expense",
                               style: TextStyle(
                                   color: Colors.black,
@@ -108,7 +108,7 @@ class _ClientScreenState extends State<ClientScreen> {
                             Obx(
                               () => Text(
                                 "₹ ${homeController.pendingsum.value}",
-                                style: TextStyle(
+                                style: const TextStyle(
                                     color: Colors.red,
                                     fontWeight: FontWeight.w400,
                                     fontSize: 25),
@@ -125,7 +125,7 @@ class _ClientScreenState extends State<ClientScreen> {
             Container(
               height: 70,
               width: double.infinity,
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 border: Border(
                   bottom: BorderSide(color: Colors.white, width: 2),
                 ),
@@ -135,13 +135,13 @@ class _ClientScreenState extends State<ClientScreen> {
                 children: [
                   IconButton(
                       onPressed: () {},
-                      icon: Icon(
+                      icon: const Icon(
                         Icons.picture_as_pdf,
                         color: Colors.white,
                       )),
                   IconButton(
                       onPressed: () {},
-                      icon: Icon(
+                      icon: const Icon(
                         Icons.currency_rupee_sharp,
                         color: Colors.white,
                       )),
@@ -151,13 +151,13 @@ class _ClientScreenState extends State<ClientScreen> {
                         // launchUrl(Uri.parse(number));
                         Share.share("your payment day is here plea");
                       },
-                      icon: Icon(
+                      icon: const Icon(
                         Icons.chat,
                         color: Colors.white,
                       )),
                   IconButton(
                       onPressed: () {},
-                      icon: Icon(
+                      icon: const Icon(
                         Icons.notifications,
                         color: Colors.white,
                       )),
@@ -166,29 +166,27 @@ class _ClientScreenState extends State<ClientScreen> {
             ),
             Padding(
               padding: const EdgeInsets.all(12.0),
-              child: Container(
-                child: Row(
-                  children: [
-                    Text(
-                      "Date/Time",
-                      style: TextStyle(color: Colors.white),
-                    ),
-                    SizedBox(
-                      width: 65,
-                    ),
-                    Text(
-                      "Remark",
-                      style: TextStyle(color: Colors.white),
-                    ),
-                    SizedBox(
-                      width: 20,
-                    ),
-                    Text(
-                      "You Gave | You Got",
-                      style: TextStyle(color: Colors.white),
-                    ),
-                  ],
-                ),
+              child: Row(
+                children: const [
+                  Text(
+                    "Date/Time",
+                    style: TextStyle(color: Colors.white),
+                  ),
+                  SizedBox(
+                    width: 65,
+                  ),
+                  Text(
+                    "Remark",
+                    style: TextStyle(color: Colors.white),
+                  ),
+                  SizedBox(
+                    width: 20,
+                  ),
+                  Text(
+                    "You Gave | You Got",
+                    style: TextStyle(color: Colors.white),
+                  ),
+                ],
               ),
             ),
             Obx(
@@ -206,7 +204,7 @@ class _ClientScreenState extends State<ClientScreen> {
                           time: homeController.productList[index]['time'],
                           payment_status: homeController.productList[index]['payment_status'],
                         );
-                        Get.to(ProductScreen());
+                        Get.to(const ProductScreen());
                       },
                       child: Padding(
                         padding: const EdgeInsets.all(10),
@@ -230,11 +228,11 @@ class _ClientScreenState extends State<ClientScreen> {
                                         children: [
                                           Text(
                                             "${homeController.productList[index]['date']}",
-                                            style: TextStyle(color: Colors.white),
+                                            style: const TextStyle(color: Colors.white),
                                           ),
                                           Text(
                                             "${homeController.productList[index]['time']}",
-                                            style: TextStyle(color: Colors.grey),
+                                            style: const TextStyle(color: Colors.grey),
                                           ),
                                         ],
                                       ),
@@ -244,7 +242,7 @@ class _ClientScreenState extends State<ClientScreen> {
                                       alignment: Alignment.center,
                                       child: Text(
                                         "${homeController.productList[index]['name']}",
-                                        style: TextStyle(color: Colors.white),
+                                        style: const TextStyle(color: Colors.white),
                                       ),
                                     ),
                                   ],
@@ -261,9 +259,9 @@ class _ClientScreenState extends State<ClientScreen> {
                                           ? Text(
                                               "${homeController.productList[index]['amount']}",
                                               style:
-                                                  TextStyle(color: Colors.white),
+                                                  const TextStyle(color: Colors.white),
                                             )
-                                          : Text(""),
+                                          : const Text(""),
                                     ),
                                     Container(
                                       width: 70,
@@ -275,9 +273,9 @@ class _ClientScreenState extends State<ClientScreen> {
                                           ? Text(
                                               "${homeController.productList[index]['amount']}",
                                               style:
-                                                  TextStyle(color: Colors.white),
+                                                  const TextStyle(color: Colors.white),
                                             )
-                                          : Text(""),
+                                          : const Text(""),
                                     ),
                                   ],
                                 )
@@ -302,9 +300,9 @@ class _ClientScreenState extends State<ClientScreen> {
                     width: 150,
                     child: ElevatedButton(
                       onPressed: () {
-                        Get.to(YougaveScreen());
+                        Get.to(const YougaveScreen());
                       },
-                      child: Text("YOU GAVE ₹"),
+                      child: const Text("YOU GAVE ₹"),
                       style:
                           ElevatedButton.styleFrom(backgroundColor: Colors.red),
                     ),
@@ -314,9 +312,9 @@ class _ClientScreenState extends State<ClientScreen> {
                     width: 150,
                     child: ElevatedButton(
                       onPressed: () {
-                        Get.to(YougotScreen());
+                        Get.to(const YougotScreen());
                       },
-                      child: Text("YOU GOT ₹"),
+                      child: const Text("YOU GOT ₹"),
                       style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.green),
                     ),
